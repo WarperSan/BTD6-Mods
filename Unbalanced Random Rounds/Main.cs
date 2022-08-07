@@ -1,13 +1,12 @@
 ﻿using MelonLoader;
 
-[assembly: MelonInfo(typeof(unbalanced_random_rounds.unbalanced_random_rounds.Main), "Unbalanced Random Rounds", "1.1.0", "WarperSan")]
+[assembly: MelonInfo(typeof(unbalanced_random_rounds.unbalanced_random_rounds.Main), "Unbalanced Random Rounds", "1.2.0", "WarperSan")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace unbalanced_random_rounds
 {
     using Assets.Main.Scenes;
     using Assets.Scripts.Models.Rounds;
     using Assets.Scripts.Unity;
-    using Assets.Scripts.Unity.UI_New.InGame;
     using BTD_Mod_Helper;
     using Harmony;
     using System;
@@ -110,7 +109,7 @@ namespace unbalanced_random_rounds
                             BloonGroupModel bloonNew = bloon;
                             bloonNew.bloon = bloonName.Replace("Camo", "").Replace("Fortified", "").Replace("Regrow", "");
 
-                            bloonNew.bloon = randomizedBloon(bloonNew.bloon);
+                            bloonNew.bloon = randomizedBloon(bloonNew.bloon, i);
 
                             newRound.groups.Add(bloonNew);
                         }
@@ -121,9 +120,11 @@ namespace unbalanced_random_rounds
                     Console.WriteLine("Randomizing Ended");
                 }
 
-                public static string randomizedBloon(string initalBloon)
+                public static string randomizedBloon(string initalBloon, int currentRoundIndex)
                 {
                     float randomNumber = UnityEngine.Random.RandomRange(0f, 1f);
+                    int minRoundForBoss = 40;
+                    int minRoundForMoabClass = 20;
 
                     // Do nothing 0.1%
                     if (randomNumber > 0.99f)
@@ -139,7 +140,21 @@ namespace unbalanced_random_rounds
                             index = 0;
                         }
 
-                        initalBloon = allBloons[UnityEngine.Random.RandomRange(0, allBloons.Length - 1)];
+                        int badIndex = Array.FindIndex(allBloons, item => "Bad" == item);
+                        int moabIndex = Array.FindIndex(allBloons, item => "Moab" == item);
+
+                        if (currentRoundIndex >= minRoundForBoss)
+                        {
+                            initalBloon = allBloons[UnityEngine.Random.RandomRange(0, allBloons.Length - 1)];
+                        }
+                        else if (currentRoundIndex >= minRoundForMoabClass)
+                        {
+                            initalBloon = allBloons[UnityEngine.Random.RandomRange(0, badIndex - 1)];
+                        }
+                        else
+                        {
+                            initalBloon = allBloons[UnityEngine.Random.RandomRange(0, moabIndex - 1)];
+                        }
                     }
 
                     string[] allStates = new string[] { "Regrow", "Fortified", "Camo" };
