@@ -1,6 +1,6 @@
 ﻿using MelonLoader;
 
-[assembly: MelonInfo(typeof(balanced_random_rounds.balanced_random_rounds.Main), "Balanced Random Rounds", "1.0.0", "WarperSan")]
+[assembly: MelonInfo(typeof(balanced_random_rounds.balanced_random_rounds.Main), "Balanced Random Rounds", "1.1.0", "WarperSan")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace balanced_random_rounds
 {
