@@ -14,10 +14,8 @@ namespace balanced_random_rounds
 
     namespace balanced_random_rounds
     {
-        // Token: 0x02000003 RID: 3
         public class Main : BloonsTD6Mod
         {
-            // Token: 0x06000003 RID: 3 RVA: 0x0000205C File Offset: 0x0000025C
             public override void OnApplicationStart()
             {
                 base.OnApplicationStart();
