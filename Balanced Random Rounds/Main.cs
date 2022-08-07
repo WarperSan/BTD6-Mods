@@ -141,7 +141,7 @@ namespace balanced_random_rounds
                         if (Array.FindIndex(bossSpawner, item => initalBloon == item) != -1)
                         {
                             // Test Bloon 0.01%
-                            if (randomNumber > 0.999f)
+                            if (randomNumber > 0.9999f)
                                 index = allBloons.Length - 1;
                             else
                                 index = UnityEngine.Random.RandomRange(0, allBosses.Length - 1);
