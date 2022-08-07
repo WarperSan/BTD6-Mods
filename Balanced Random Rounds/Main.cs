@@ -148,7 +148,7 @@ namespace balanced_random_rounds
                             index = 0;
                         }
 
-                        initalBloon = allBloons[UnityEngine.Random.RandomRange(0, allBloons.Length)];
+                        initalBloon = allBloons[++index];
                     }
 
                     string[] allStates = new string[] { "Regrow", "Fortified", "Camo" };
