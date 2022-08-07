@@ -1,4 +1,4 @@
-﻿using MelonLoader;
+using MelonLoader;
 
 [assembly: MelonInfo(typeof(balanced_random_rounds.balanced_random_rounds.Main), "Balanced Random Rounds", "1.0.0", "WarperSan")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -7,7 +7,6 @@ namespace balanced_random_rounds
     using Assets.Main.Scenes;
     using Assets.Scripts.Models.Rounds;
     using Assets.Scripts.Unity;
-    using Assets.Scripts.Unity.UI_New.InGame;
     using BTD_Mod_Helper;
     using Harmony;
     using System;
@@ -44,6 +43,17 @@ namespace balanced_random_rounds
                 "Zomg",
                 "Ddt",
                 "Bad",
+                "TestBloon"
+            };
+
+            public static List<string> allBloonsReference = new List<string>();
+            public static string[] bossSpawner = new string[]
+            {
+                "Bad"
+            };
+
+            public static string[] allBosses = new string[]
+            {
                 "Vortex1",
                 "Vortex2",
                 "Vortex3",
@@ -69,31 +79,12 @@ namespace balanced_random_rounds
                 "Lych3",
                 "Lych4",
                 "Lych5",
-                "MiniLych1",
-                "MiniLych2",
-                "MiniLych3",
-                "MiniLych4",
-                "MiniLych5",
                 "LychElite1",
                 "LychElite2",
                 "LychElite3",
                 "LychElite4",
-                "LychElite5",
-                "MiniLychElite1",
-                "MiniLychElite2",
-                "MiniLychElite3",
-                "MiniLychElite4",
-                "MiniLychElite5",
-                "TestBloon"
+                "LychElite5"
             };
-
-            public static List<string> allBloonsReference = new List<string>();
-
-            // Token: 0x06000005 RID: 5 RVA: 0x00002214 File Offset: 0x00000414
-            public override void OnInGameLoaded(InGame inGame)
-            {
-
-            }
 
             [HarmonyPatch(typeof(TitleScreen), "Start")]
             public class GameModel_Patch
@@ -110,9 +101,9 @@ namespace balanced_random_rounds
                     RoundSetModel roundSet = Game.instance.model.roundSets[1];
                     for (int i = 0; i < roundSet.rounds.Count; i++)
                     {
-                        UnhollowerBaseLib.Il2CppReferenceArray<BloonGroupModel> newRound = roundSet.rounds[i].groups;
+                        RoundModel newRound = roundSet.rounds[i];
 
-                        foreach (var bloon in newRound)
+                        foreach (var bloon in newRound.groups)
                         {
                             string bloonName = bloon.bloon;
                             BloonGroupModel bloonNew = bloon;
@@ -120,14 +111,13 @@ namespace balanced_random_rounds
 
                             bloonNew.bloon = randomizedBloon(bloonNew.bloon);
 
-                            newRound.Add(bloonNew);
+                            newRound.groups.Add(bloonNew);
                         }
 
-                        roundSet.rounds[i].groups = newRound;
+                        roundSet.rounds[i] = newRound;
                     }
 
                     Console.WriteLine("Randomizing Ended");
-                    Console.WriteLine("The randomizing only occurs when the game loads for the first time");
                 }
 
                 public static string randomizedBloon(string initalBloon)
@@ -138,7 +128,7 @@ namespace balanced_random_rounds
                     if (randomNumber > 0.99f)
                         return initalBloon;
 
-                    // Upgrade
+                    // Upgrade 20%
                     if (randomNumber > 0.8f)
                     {
                         int index = Array.FindIndex(allBloons, item => initalBloon == item);
@@ -148,7 +138,18 @@ namespace balanced_random_rounds
                             index = 0;
                         }
 
-                        initalBloon = allBloons[++index];
+                        if (Array.FindIndex(bossSpawner, item => initalBloon == item) != -1)
+                        {
+                            // Test Bloon 0.01%
+                            if (randomNumber > 0.999f)
+                                index = allBloons.Length - 1;
+                            else
+                                index = UnityEngine.Random.RandomRange(0, allBosses.Length - 1);
+                        }
+                        else
+                            index++;
+
+                        initalBloon = allBloons[index];
                     }
 
                     string[] allStates = new string[] { "Regrow", "Fortified", "Camo" };
@@ -156,7 +157,9 @@ namespace balanced_random_rounds
                     foreach (var state in allStates)
                     {
                         randomNumber = UnityEngine.Random.Range(0f, 1f);
-                        if (randomNumber > 0.6f)
+
+                        // Change state 30%
+                        if (randomNumber > 0.7f)
                         {
                             if (allBloonsReference.Contains(initalBloon + state))
                                 initalBloon += state;
@@ -164,13 +167,6 @@ namespace balanced_random_rounds
                     }
                     return initalBloon;
                 }
-            }
-
-            // Token: 0x06000006 RID: 6 RVA: 0x00002354 File Offset: 0x00000554
-            public override void OnUpdate()
-            {
-                base.OnUpdate();
-                bool flag = InGame.instance != null && InGame.instance.bridge != null;
             }
         }
     }
