@@ -1,6 +1,6 @@
 ﻿using MelonLoader;
 
-[assembly: MelonInfo(typeof(unbalanced_random_rounds.unbalanced_random_rounds.Main), "Unbalanced Random Rounds", "1.0.0", "WarperSan")]
+[assembly: MelonInfo(typeof(unbalanced_random_rounds.unbalanced_random_rounds.Main), "Unbalanced Random Rounds", "1.1.0", "WarperSan")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace unbalanced_random_rounds
 {
@@ -15,10 +15,8 @@ namespace unbalanced_random_rounds
 
     namespace unbalanced_random_rounds
     {
-        // Token: 0x02000003 RID: 3
         public class Main : BloonsTD6Mod
         {
-            // Token: 0x06000003 RID: 3 RVA: 0x0000205C File Offset: 0x0000025C
             public override void OnApplicationStart()
             {
                 base.OnApplicationStart();
@@ -89,12 +87,6 @@ namespace unbalanced_random_rounds
 
             public static List<string> allBloonsReference = new List<string>();
 
-            // Token: 0x06000005 RID: 5 RVA: 0x00002214 File Offset: 0x00000414
-            public override void OnInGameLoaded(InGame inGame)
-            {
-
-            }
-
             [HarmonyPatch(typeof(TitleScreen), "Start")]
             public class GameModel_Patch
             {
@@ -110,9 +102,9 @@ namespace unbalanced_random_rounds
                     RoundSetModel roundSet = Game.instance.model.roundSets[1];
                     for (int i = 0; i < roundSet.rounds.Count; i++)
                     {
-                        UnhollowerBaseLib.Il2CppReferenceArray<BloonGroupModel> newRound = roundSet.rounds[i].groups;
+                        RoundModel newRound = roundSet.rounds[i];
 
-                        foreach (var bloon in newRound)
+                        foreach (var bloon in newRound.groups)
                         {
                             string bloonName = bloon.bloon;
                             BloonGroupModel bloonNew = bloon;
@@ -120,14 +112,13 @@ namespace unbalanced_random_rounds
 
                             bloonNew.bloon = randomizedBloon(bloonNew.bloon);
 
-                            newRound.Add(bloonNew);
+                            newRound.groups.Add(bloonNew);
                         }
 
-                        roundSet.rounds[i].groups = newRound;
+                        roundSet.rounds[i] = newRound;
                     }
 
                     Console.WriteLine("Randomizing Ended");
-                    Console.WriteLine("The randomizing only occurs when the game loads for the first time");
                 }
 
                 public static string randomizedBloon(string initalBloon)
@@ -138,7 +129,7 @@ namespace unbalanced_random_rounds
                     if (randomNumber > 0.99f)
                         return initalBloon;
 
-                    // Upgrade
+                    // Upgrade everytime
                     if (randomNumber > -1f)
                     {
                         int index = Array.FindIndex(allBloons, item => initalBloon == item);
@@ -148,7 +139,7 @@ namespace unbalanced_random_rounds
                             index = 0;
                         }
 
-                        initalBloon = allBloons[UnityEngine.Random.RandomRange(0, allBloons.Length)];
+                        initalBloon = allBloons[UnityEngine.Random.RandomRange(0, allBloons.Length - 1)];
                     }
 
                     string[] allStates = new string[] { "Regrow", "Fortified", "Camo" };
@@ -156,7 +147,7 @@ namespace unbalanced_random_rounds
                     foreach (var state in allStates)
                     {
                         randomNumber = UnityEngine.Random.Range(0f, 1f);
-                        if (randomNumber > 0.6f)
+                        if (randomNumber > 0.7f)
                         {
                             if (allBloonsReference.Contains(initalBloon + state))
                                 initalBloon += state;
@@ -164,13 +155,6 @@ namespace unbalanced_random_rounds
                     }
                     return initalBloon;
                 }
-            }
-
-            // Token: 0x06000006 RID: 6 RVA: 0x00002354 File Offset: 0x00000554
-            public override void OnUpdate()
-            {
-                base.OnUpdate();
-                bool flag = InGame.instance != null && InGame.instance.bridge != null;
             }
         }
     }
