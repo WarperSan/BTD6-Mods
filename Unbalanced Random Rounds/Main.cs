@@ -118,11 +118,7 @@ namespace unbalanced_random_rounds
                         }
 
                         allBloonsReference.Add(bloons.name);
-                    }
-
-                    foreach (var bloon in Game.instance.model.bloons)
-                    {
-                        bloon.behaviors[1].Cast<DistributeCashModel>().cash = (float)(bloon.behaviors[1].Cast<DistributeCashModel>().cash * cashDecreaseMultiplier);
+                        bloons.behaviors[1].Cast<DistributeCashModel>().cash = (float)(bloons.behaviors[1].Cast<DistributeCashModel>().cash * cashDecreaseMultiplier);
                     }
 
                     if (!Directory.Exists(path))
