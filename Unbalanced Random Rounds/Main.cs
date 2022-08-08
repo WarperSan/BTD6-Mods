@@ -10,6 +10,7 @@ namespace unbalanced_random_rounds
     using Assets.Scripts.Unity;
     using Assets.Scripts.Unity.UI_New.InGame;
     using BTD_Mod_Helper;
+    using BTD_Mod_Helper.Api.ModOptions;
     using Harmony;
     using System;
     using System.Collections.Generic;
@@ -89,13 +90,18 @@ namespace unbalanced_random_rounds
 
             public static List<string> allBloonsReference = new List<string>();
 
-            public override void OnInGameLoaded(InGame inGame)
+            static Main()
             {
-
+                ModSettingDouble modSettingInt1 = new ModSettingDouble(0.1f);
+                modSettingInt1.displayName = "Cash Decrease Multiplier";
+                modSettingInt1.minValue = 0;
+                modSettingInt1.maxValue = 1000;
+                Main.cashDecreaseMultiplier = modSettingInt1;
             }
 
             private static string path = "Mods/random_rounds/";
             private static string randomizationPath = path + "current_randomization.txt";
+            private static readonly ModSettingDouble cashDecreaseMultiplier = 0.1f;
 
             [HarmonyPatch(typeof(TitleScreen), "Start")]
             public class GameModel_Patch
@@ -114,11 +120,9 @@ namespace unbalanced_random_rounds
                         allBloonsReference.Add(bloons.name);
                     }
 
-                    float cashDecreaseMultiplier = 0.1f;
-
                     foreach (var bloon in Game.instance.model.bloons)
                     {
-                        bloon.behaviors[1].Cast<DistributeCashModel>().cash = bloon.behaviors[1].Cast<DistributeCashModel>().cash * cashDecreaseMultiplier;
+                        bloon.behaviors[1].Cast<DistributeCashModel>().cash = (float)(bloon.behaviors[1].Cast<DistributeCashModel>().cash * cashDecreaseMultiplier);
                     }
 
                     if (!Directory.Exists(path))
