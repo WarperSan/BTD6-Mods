@@ -1,16 +1,19 @@
 ﻿using MelonLoader;
 
-[assembly: MelonInfo(typeof(balanced_random_rounds.balanced_random_rounds.Main), "Balanced Random Rounds", "1.1.0", "WarperSan")]
+[assembly: MelonInfo(typeof(balanced_random_rounds.balanced_random_rounds.Main), "Balanced Random Rounds", "1.2.0", "WarperSan")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace balanced_random_rounds
 {
     using Assets.Main.Scenes;
+    using Assets.Scripts.Models.Bloons.Behaviors;
     using Assets.Scripts.Models.Rounds;
     using Assets.Scripts.Unity;
     using BTD_Mod_Helper;
+    using BTD_Mod_Helper.Api.ModOptions;
     using Harmony;
     using System;
     using System.Collections.Generic;
+    using System.IO;
 
     namespace balanced_random_rounds
     {
@@ -86,6 +89,10 @@ namespace balanced_random_rounds
                 "LychElite5"
             };
 
+            private static float cashDecreaseMultiplier = 0.1f;
+            private static string path = "Mods/random_rounds/";
+            private static string randomizationPath = path + "current_randomization.txt";
+
             [HarmonyPatch(typeof(TitleScreen), "Start")]
             public class GameModel_Patch
             {
@@ -94,13 +101,92 @@ namespace balanced_random_rounds
                 {
                     foreach (var bloons in Game.instance.model.bloons)
                     {
-                        allBloonsReference.Add(bloons.name.Replace(" ", ""));
+                        if (bloons.tags.Contains("Boss"))
+                        {
+                            bloons.leakDamage = bloons.maxHealth;
+                        }
+
+                        allBloonsReference.Add(bloons.name);
+                        bloons.behaviors[1].Cast<DistributeCashModel>().cash = bloons.behaviors[1].Cast<DistributeCashModel>().cash * cashDecreaseMultiplier;
                     }
 
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    string content = "";
+
+                    if (!File.Exists(randomizationPath))
+                    {
+                        File.Create(randomizationPath);
+
+                        randomizeRounds(content);
+                    }
+                    else
+                    {
+                        string[] lines = File.ReadAllLines(randomizationPath);
+                        int roundIndex = 0;
+
+                        Console.WriteLine("Starting Reading File");
+                        RoundModel newRound = Game.instance.model.roundSets[1].rounds[roundIndex];
+
+                        for (int i = 0; i < lines.Length; i++)
+                        {
+                            string line = lines[i];
+
+                            if (!line.Contains("Round"))
+                            {
+                                if (line == "")
+                                {
+                                    Game.instance.model.roundSets[1].rounds[roundIndex] = newRound;
+
+                                    roundIndex++;
+
+                                    if (Game.instance.model.roundSets[1].rounds.Length > roundIndex)
+                                        newRound = Game.instance.model.roundSets[1].rounds[roundIndex];
+                                    else
+                                        i = lines.Length;
+                                }
+                                else
+                                {
+                                    int indexOfSpace = line.IndexOf(" ");
+                                    string nameOfBloon = line.Substring(0, indexOfSpace);
+
+                                    Int32.TryParse(line.Substring(indexOfSpace + 2, line.Length - indexOfSpace - 2), out int bloonCount);
+
+                                    if (allBloonsReference.FindIndex(item => nameOfBloon == item) == -1)
+                                    {
+                                        Console.WriteLine(nameOfBloon);
+                                        i = lines.Length;
+                                        Console.WriteLine("Error at line " + (i + 1));
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        BloonGroupModel bloonNew = newRound.groups[0];
+
+                                        bloonNew.bloon = nameOfBloon;
+                                        bloonNew.count = bloonCount;
+
+                                        newRound.groups.Add(bloonNew);
+                                    }
+                                }
+                            }
+                        }
+
+                        Console.WriteLine("Reading File Successfully");
+                    }
+                }
+
+                private static void randomizeRounds(string content)
+                {
                     Console.WriteLine("Randomizing Starting");
                     RoundSetModel roundSet = Game.instance.model.roundSets[1];
                     for (int i = 0; i < roundSet.rounds.Count; i++)
                     {
+                        content = content + "Round " + (i + 1) + "\n";
+
                         RoundModel newRound = roundSet.rounds[i];
 
                         foreach (var bloon in newRound.groups)
@@ -109,18 +195,23 @@ namespace balanced_random_rounds
                             BloonGroupModel bloonNew = bloon;
                             bloonNew.bloon = bloonName.Replace("Camo", "").Replace("Fortified", "").Replace("Regrow", "");
 
-                            bloonNew.bloon = randomizedBloon(bloonNew.bloon);
+                            bloonNew.bloon = randomizedBloon(bloonNew.bloon, i, bloonNew);
 
                             newRound.groups.Add(bloonNew);
+
+                            content = content + bloonNew.bloon + " x" + bloonNew.count + "\n";
                         }
 
                         roundSet.rounds[i] = newRound;
+                        content = content + "\n";
                     }
+
+                    File.WriteAllText(randomizationPath, content);
 
                     Console.WriteLine("Randomizing Ended");
                 }
 
-                public static string randomizedBloon(string initalBloon)
+                public static string randomizedBloon(string initalBloon, int currentRoundIndex, BloonGroupModel bloon)
                 {
                     float randomNumber = UnityEngine.Random.RandomRange(0f, 1f);
 
@@ -132,11 +223,6 @@ namespace balanced_random_rounds
                     if (randomNumber > 0.8f)
                     {
                         int index = Array.FindIndex(allBloons, item => initalBloon == item);
-
-                        if (index >= allBloons.Length)
-                        {
-                            index = 0;
-                        }
 
                         if (Array.FindIndex(bossSpawner, item => initalBloon == item) != -1)
                         {
@@ -157,8 +243,6 @@ namespace balanced_random_rounds
                     foreach (var state in allStates)
                     {
                         randomNumber = UnityEngine.Random.Range(0f, 1f);
-
-                        // Change state 30%
                         if (randomNumber > 0.7f)
                         {
                             if (allBloonsReference.Contains(initalBloon + state))
