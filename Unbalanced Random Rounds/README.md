@@ -3,3 +3,5 @@ Bloons will be randomized within their stack. If a Red Bloon is randomized to a 
 
 This mod randomizes at the start of the game (when the game is loaded) all the normal rounds (1 to 140). Can cause a bit of lag.
 The rounds are saved in a file named "current_randomization". If the file is in the folder, the mod will load it. To create a new loadout, just remove/move it from this folder. You can create another folder to store other loadouts but in order to load them, you NEED to name them "current_randomization.txt"
+
+NOTE: Every bloon gives you x10 less cash. In order to get $1, you need to pop 10 Red bloons. This change is due to the absurd amount of money you can get if you get a MOAB Clas Bloon Rush.
