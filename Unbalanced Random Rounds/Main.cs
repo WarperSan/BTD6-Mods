@@ -106,7 +106,12 @@ namespace unbalanced_random_rounds
 
                     foreach (var bloons in Game.instance.model.bloons)
                     {
-                        allBloonsReference.Add(bloons.name.Replace(" ", ""));
+                        if(bloons.tags.Contains("Boss"))
+                        {
+                            bloons.leakDamage = bloons.maxHealth;
+                        }
+
+                        allBloonsReference.Add(bloons.name);
                     }
 
                     float cashDecreaseMultiplier = 0.1f;
