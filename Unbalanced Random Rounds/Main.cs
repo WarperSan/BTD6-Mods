@@ -140,7 +140,9 @@ namespace unbalanced_random_rounds
                         int roundIndex = 0;
 
                         Console.WriteLine("Starting Reading File");
-                        RoundModel newRound = Game.instance.model.roundSets[1].rounds[roundIndex];
+                        RoundModel newRound = Game.instance.model.roundSets[1].rounds[roundIndex].Clone().Cast<RoundModel>();
+
+                        int groupIndex = 0;
 
                         for (int i = 0; i < lines.Length; i++)
                         {
@@ -150,6 +152,7 @@ namespace unbalanced_random_rounds
                             {
                                 if (line == "")
                                 {
+                                    groupIndex = 0;
                                     Game.instance.model.roundSets[1].rounds[roundIndex] = newRound;
 
                                     roundIndex++;
@@ -175,12 +178,14 @@ namespace unbalanced_random_rounds
                                     }
                                     else
                                     {
-                                        BloonGroupModel bloonNew = newRound.groups[0];
+                                        BloonGroupModel bloonNew = newRound.groups[groupIndex];
 
                                         bloonNew.bloon = nameOfBloon;
                                         bloonNew.count = bloonCount;
 
                                         newRound.groups.Add(bloonNew);
+
+                                        groupIndex++;
                                     }
                                 }
                             }
