@@ -21,6 +21,8 @@ namespace SubParagon
 {
     public class Main : BloonsTD6Mod
     {
+        public override string GithubReleaseURL => "https://api.github.com/WarperSan/BTD6-Mods/releases/tag/SubParagon";
+
         [HarmonyPatch(typeof(TowerManager), "UpgradeTower")]
         internal class Tower_Initialise
         {
