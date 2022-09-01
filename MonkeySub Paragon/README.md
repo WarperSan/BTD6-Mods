@@ -4,7 +4,8 @@ Name of the Paragon : USS Seawolf-575
 
 In game description: "After YEARS of making, I finally succeeded to create the perfect radioactive destroyer. It can destroy anything! Even... Oh no... I forgot about DDTs... - Dr. Monkey"
 
-WARNING : For some reason, you can't upgrade the bottom path to a paragon and the top path NEEDS to not be on submerge
+WARNING : For some reason, you can't upgrade the bottom path to a paragon
+The paragon will glitch out if you do
 
 Details about the Paragon:
 ```
@@ -62,7 +63,8 @@ Rate = 20
 Normal Missile
 ```
 All degrees
-Damage = 2000
+Damage = 2000 * (degree / 10 + 1)
+Note that (degree / 10 + 1) can only be an integer
 Rate = 0.5
 ```
 
