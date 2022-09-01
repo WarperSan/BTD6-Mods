@@ -69,7 +69,7 @@ namespace SubParagon
                 tower.towerModel.GetAttackModel(0).weapons[0].rate = -0.00003f * (degree - 1) + 0.03f;
                 tower.towerModel.GetWeapons()[1].projectile.GetBehavior<CreateProjectileOnExpireModel>().projectile.GetDamageModel().damage = 20000f;
                 tower.towerModel.GetWeapons()[1].rate = 5f / 7f * degree + 10f;
-                tower.towerModel.GetWeapons()[2].projectile.GetBehavior<CreateProjectileOnExpireModel>().projectile.GetDamageModel().damage = 2000f * (degree / 10 + 1);
+                tower.towerModel.GetWeapons()[2].projectile.GetBehavior<CreateProjectileOnExpireModel>().projectile.GetDamageModel().damage = 2000f * (int)(degree / 10 + 1);
 
                 if (degree >= 25)
                 {
