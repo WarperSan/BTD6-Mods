@@ -4,8 +4,7 @@ Name of the Paragon : USS Seawolf-575
 
 In game description: "After YEARS of making, I finally succeeded to create the perfect radioactive destroyer. It can destroy anything! Even... Oh no... I forgot about DDTs... - Dr. Monkey"
 
-WARNING : For some reason, you can't upgrade the bottom path to a paragon
-The paragon will glitch out if you do
+WARNING : For some reason, you can't upgrade the bottom path to a paragon. The paragon will glitch out if you do
 
 Details about the Paragon:
 ```
