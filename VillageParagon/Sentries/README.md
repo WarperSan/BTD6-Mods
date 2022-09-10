@@ -15,7 +15,7 @@ So tier5Counts[x] is equal to the number of sacrificed towers of the associated 
 - Value of each crates: 625 + 625 * degree / 100 * tier5Counts[3] / 5
 - Replaced the Crushing sentry
 
-# Big Boi Sentry ![Big Boi Sentry Picture](big_boi_sentry.png)
+# Big Boi Sentry ![Big Boi Sentry Picture](big_boi_sentry.PNG)
 - Rate = 0.15f - degree / 1000f
 - Damage = 240 + Math.FloorToInt(480f * degree / 1000f) * 10 * tier5Counts[1] / 5
 - Ceramics damage addative = 45 + Math.FloorToInt(90f * degree / 1000f) * 10 * tier5Counts[1] / 5
@@ -25,13 +25,13 @@ So tier5Counts[x] is equal to the number of sacrificed towers of the associated 
 - BAD damage addition = 480 + Math.FloorToInt(960f * degree / 1000f) * 10 * tier5Counts[1] / 5
 - Replaced the Energy sentry
 
-# Group Sentry ![Group Picture](group_sentry.png)
+# Group Sentry ![Group Picture](group_sentry.PNG)
 - Ability cooldown = 15 - 10 * degree / 100 * tier5Counts[2] / 5
 - Damage = 4 + 12 * degree / 100 * tier5Counts[2] / 5
 - Pierce = 18 + 54 * degree / 100 * tier5Counts[2] / 5
 - Replaced the Cold sentry
 
-# Solver Sentry ![Solver Picture](solver_sentry.png)
+# Solver Sentry ![Solver Picture](solver_sentry.PNG)
 - Damage = 5 + 15 * degree / 100 * tier5Counts[0] / 5
 - Rate = 0.15f - 0.1f * degree / 100 * tier5Counts[0] / 5
 - Replaced the Boom sentry
