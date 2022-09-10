@@ -16,8 +16,13 @@ So tier5Counts[x] is equal to the number of sacrificed towers of the associated 
 - Replaced the Crushing sentry
 
 # Big Boi Sentry ![Big Boi Sentry Picture](big_boi_sentry.png)
-- How much crates it can generate **at max**: 10 + 10 * degree / 100 * tier5Counts[3] / 5
-- Value = 625 + 625 * degree / 100 * tier5Counts[3] / 5
+- Rate = 0.15f - degree / 1000f
+- Damage = 240 + Math.FloorToInt(480f * degree / 1000f) * 10 * tier5Counts[1] / 5
+- Ceramics damage addative = 45 + Math.FloorToInt(90f * degree / 1000f) * 10 * tier5Counts[1] / 5
+- Moab damage addition = 60 + Math.FloorToInt(120f * degree / 1000f) * 10 * tier5Counts[1] / 5
+- BFB damage addition = 120 + Math.FloorToInt(240f * degree / 1000f) * 10 * tier5Counts[1] / 5
+- ZOMG & DDT damage addition = 180 + Math.FloorToInt(360f * degree / 1000f) * 10 * tier5Counts[1] / 5
+- BAD damage addition = 480 + Math.FloorToInt(960f * degree / 1000f) * 10 * tier5Counts[1] / 5
 - Replaced the Energy sentry
 
 # Group Sentry ![Group Picture](group_sentry.png)
