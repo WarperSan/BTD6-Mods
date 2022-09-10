@@ -3,7 +3,7 @@ Here is the new Village paragon.
 
 - Name: Monkey Industry
 - Description: "Throws specialized Bots on the field. Tier 5s sacrifices enchance the paragon's tower of the same type but will consume everything that isn't a village. Also gives mega buffs."
-- Cost: 800000
+- Cost: 800k
 - Range: 87
 
 ### How does it work ?
