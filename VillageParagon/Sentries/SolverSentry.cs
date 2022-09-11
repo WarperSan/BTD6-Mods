@@ -1,15 +1,8 @@
 ﻿using Assets.Scripts.Models.Bloons.Behaviors;
-using Assets.Scripts.Models.GenericBehaviors;
 using Assets.Scripts.Models.Towers;
 using Assets.Scripts.Models.Towers.Behaviors;
 using Assets.Scripts.Models.Towers.Behaviors.Abilities;
-using Assets.Scripts.Models.Towers.Behaviors.Attack;
-using Assets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
-using Assets.Scripts.Models.Towers.Upgrades;
-using Assets.Scripts.Models.Towers.Weapons.Behaviors;
-using Assets.Scripts.Simulation.SMath;
-using Assets.Scripts.Simulation.Towers;
 using Assets.Scripts.Unity;
 using Assets.Scripts.Unity.Display;
 using BTD_Mod_Helper.Api.Display;
@@ -30,6 +23,7 @@ namespace SolverSentry
             public override int TopPathUpgrades => 0;
             public override int MiddlePathUpgrades => 0;
             public override int BottomPathUpgrades => 0;
+            public override bool DontAddToShop => !VillageParagon.VillageParagon.addSentriesInShop;
 
             public override void ModifyBaseTowerModel(TowerModel towerModel)
             {
@@ -54,7 +48,8 @@ namespace SolverSentry
 
                 TowerExpireModel towerExpire = new TowerExpireModel("TowerExpireModel_", 25f, 0, false, false);
 
-                towerModel.AddBehavior(towerExpire);
+                if (!VillageParagon.VillageParagon.addSentriesInShop)
+                    towerModel.AddBehavior(towerExpire);
 
                 towerModel.isSubTower = true;
 
