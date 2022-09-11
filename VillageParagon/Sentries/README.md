@@ -42,7 +42,7 @@ Pierce = 18 + 54 * degree / 100 * tier5Counts[2] / 5
 # Solver Sentry ![Solver Picture](solver_sentry.PNG)
 ```
 Deals slow bloons for 30 seconds.
-The sentry is spawned every 30 seconds.
+The sentry is spawned every 60 seconds.
 
 Rate = 0.15f - 0.1f * degree / 100 * tier5Counts[0] / 5
 Slow Moab Multiplier = 4  + 2 * degree / 100 * tier5Counts[3] / 5
