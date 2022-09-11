@@ -17,6 +17,7 @@ Spawn a money geyser for 5 seconds.
 The sentry is spawned every 60 seconds.
 
 Value of the crates = 625 + 625 * degree / 100 * tier5Counts[3] / 5
+Rate = 0.05
 ```
 
 # Big Boi Sentry ![Big Boi Sentry Picture](big_boi_sentry.PNG)
@@ -44,6 +45,10 @@ Pierce = 18 + 54 * degree / 100 * tier5Counts[2] / 5
 ```
 
 # Solver Sentry ![Solver Picture](solver_sentry.PNG)
-- Damage = 5 + 15 * degree / 100 * tier5Counts[0] / 5
-- Rate = 0.15f - 0.1f * degree / 100 * tier5Counts[0] / 5
-- Replaced the Boom sentry
+```
+Deals multi target damage for 30 seconds.
+The sentry is spawned every 10 seconds.
+
+Damage = 5 + 15 * degree / 100 * tier5Counts[0] / 5
+Rate = 0.15f - 0.1f * degree / 100 * tier5Counts[0] / 5
+```
