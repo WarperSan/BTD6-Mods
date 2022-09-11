@@ -25,9 +25,11 @@ namespace VillageParagon
             public override string Name => "MonkeyVillage";
         }
 
+        static public bool addSentriesInShop = false;
+
         public class MonkeyVillageParagonUpgrade : ModParagonUpgrade<MonkeyVillageParagon>
         {
-            public override int Cost => 800000;
+            public override int Cost => 650000;
             public override string Description => "Throws specialized Bots on the field. Tier 5s sacrifices enchance the paragon's tower of the same type but will consume everything that isn't a village. Also gives mega buffs.";
             public override string DisplayName => "Monkey Industry";
 
@@ -38,9 +40,12 @@ namespace VillageParagon
             {
                 int[] tier5Counts = new int[4] { 0, 0, 0, 0 }; // Primary, Military, Magic, Support
 
+                const int max5Tier = 5;
+
                 for (int i = 0; i < InGame.Bridge.GetAllTowers().Count; i++)
                 {
-                    if (!InGame.Bridge.GetAllTowers()[i].tower.towerModel.name.Contains("Village"))
+                    Tower towerToSell = InGame.Bridge.GetAllTowers()[i].tower;
+                    if (!towerToSell.towerModel.name.Contains("Village") && !towerToSell.towerModel.IsHero() && !towerToSell.towerModel.isParagon && !towerToSell.towerModel.isPowerTower)
                     {
                         Vector2 paragonPos = tower.transform.position.ToVector2();
                         Vector2 towerPos = InGame.Bridge.GetAllTowers()[i].tower.transform.position.ToVector2();
@@ -54,16 +59,20 @@ namespace VillageParagon
                                 switch (InGame.Bridge.GetAllTowers()[i].tower.towerModel.towerSet)
                                 {
                                     case "Primary":
+                                        if(tier5Counts[0] +1 <= max5Tier)
                                         tier5Counts[0]++;
                                         break;
                                     case "Military":
-                                        tier5Counts[1]++;
+                                        if (tier5Counts[1] + 1 <= max5Tier)
+                                            tier5Counts[1]++;
                                         break;
                                     case "Magic":
-                                        tier5Counts[2]++;
+                                        if (tier5Counts[2] + 1 <= max5Tier)
+                                            tier5Counts[2]++;
                                         break;
                                     case "Support":
-                                        tier5Counts[3]++;
+                                        if (tier5Counts[3] + 1 <= max5Tier)
+                                            tier5Counts[3]++;
                                         break;
                                     default:
                                         break;
@@ -77,8 +86,6 @@ namespace VillageParagon
                 }
 
                 // Degree ranking up
-                const int max5Tier = 5;
-
                 // Start Cripple Moab
                 TowerModel crippleMoab = tower.towerModel.GetWeapon(0).projectile.GetBehavior<CreateTypedTowerModel>().energyTower;
                 crippleMoab.GetWeapon(0).rate = 0.15f - degree / 1000f;
@@ -126,6 +133,8 @@ namespace VillageParagon
                 bloonSolver.GetWeapon(0).projectile.GetBehavior<AddBehaviorToBloonModel>().GetBehavior<DamageOverTimeModel>().damage = 5 + 15 * degree / 100 * tier5Counts[0] / max5Tier;
                 bloonSolver.GetWeapon(0).rate = 0.15f - 0.1f * degree / 100 * tier5Counts[0] / max5Tier;
                 // End Bloon Solver -----------
+
+                tower.towerModel.GetWeapon(0).rate = 10 - 5 * degree / 100 * (tier5Counts[0] + tier5Counts[1] + tier5Counts[2] + tier5Counts[3]) / (max5Tier * 4);
 
                 System.Console.WriteLine($"{tier5Counts[0]};{tier5Counts[1]};{tier5Counts[2]};{tier5Counts[3]}");
 
