@@ -41,9 +41,12 @@ Pierce = 18 + 54 * degree / 100 * tier5Counts[2] / 5
 
 # Solver Sentry ![Solver Picture](solver_sentry.PNG)
 ```
-Deals multi target damage for 30 seconds.
-The sentry is spawned every 10 seconds.
+Deals slow bloons for 30 seconds.
+The sentry is spawned every 30 seconds.
 
-Damage = 5 + 15 * degree / 100 * tier5Counts[0] / 5
 Rate = 0.15f - 0.1f * degree / 100 * tier5Counts[0] / 5
+Slow Moab Multiplier = 4  + 2 * degree / 100 * tier5Counts[3] / 5
+Slow BFB Multiplier = 0.2f + 0.4f * degree / 100 * tier5Counts[3] / 5
+Slow ZOMG Multiplier = 0.4f + 0.8f * degree / 100 * tier5Counts[3] / 5
+Slow BAD Multiplier = 3f + 3f * degree / 100 * tier5Counts[3] / 5
 ```
