@@ -26,12 +26,7 @@ Deals huge single target damage for 120 seconds.
 The sentry is spawned every 30 seconds.
 
 Rate = 0.15f - degree / 1000f
-Damage = 240 + Math.FloorToInt(480f * degree / 1000f) * 10 * tier5Counts[1] / 5
-Ceramics damage addative = 45 + Math.FloorToInt(90f * degree / 1000f) * 10 * tier5Counts[1] / 5
-Moab damage addition = 60 + Math.FloorToInt(120f * degree / 1000f) * 10 * tier5Counts[1] / 5
-BFB damage addition = 120 + Math.FloorToInt(240f * degree / 1000f) * 10 * tier5Counts[1] / 5
-ZOMG & DDT damage addition = 180 + Math.FloorToInt(360f * degree / 1000f) * 10 * tier5Counts[1] / 5
-BAD damage addition = 480 + Math.FloorToInt(960f * degree / 1000f) * 10 * tier5Counts[1] / 5
+Damage = 240 + Math.FloorToInt(960f * degree / 1000f) * 10 * tier5Counts[1] / 5
 ```
 
 # Group Sentry ![Group Picture](group_sentry.PNG)
