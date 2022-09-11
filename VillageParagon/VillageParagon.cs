@@ -59,8 +59,8 @@ namespace VillageParagon
                                 switch (InGame.Bridge.GetAllTowers()[i].tower.towerModel.towerSet)
                                 {
                                     case "Primary":
-                                        if(tier5Counts[0] +1 <= max5Tier)
-                                        tier5Counts[0]++;
+                                        if (tier5Counts[0] + 1 <= max5Tier)
+                                            tier5Counts[0]++;
                                         break;
                                     case "Military":
                                         if (tier5Counts[1] + 1 <= max5Tier)
@@ -87,40 +87,27 @@ namespace VillageParagon
 
                 // Degree ranking up
                 // Start Cripple Moab
-                TowerModel crippleMoab = tower.towerModel.GetWeapon(0).projectile.GetBehavior<CreateTypedTowerModel>().energyTower;
+                TowerModel crippleMoab = tower.towerModel.GetWeapon(3).projectile.GetBehavior<CreateTowerModel>().tower;
+                tower.towerModel.GetWeapon(3).rate = 30;
+
                 crippleMoab.GetWeapon(0).rate = 0.15f - degree / 1000f;
-                crippleMoab.GetWeapon(0).projectile.GetDamageModel().damage = 240 + Math.FloorToInt(480f * degree / 1000f) * 10 * tier5Counts[1] / max5Tier;
-
-                // Modifiers
-                // Ceramics
-                crippleMoab.GetWeapon(0).projectile.GetBehavior<DamageModifierForTagModel>().damageAddative = 45 + Math.FloorToInt(90f * degree / 1000f) * 10 * tier5Counts[1] / 5;
-
-                // Moab
-                crippleMoab.GetWeapon(0).projectile.GetBehavior<SlowMaimMoabModel>().moabMutator.bloonPerHitDamageAddition = 60 + Math.FloorToInt(120f * degree / 1000f) * 10 * tier5Counts[1] / max5Tier;
-
-                // BFB
-                crippleMoab.GetWeapon(0).projectile.GetBehavior<SlowMaimMoabModel>().bfbMutator.bloonPerHitDamageAddition = 120 + Math.FloorToInt(240f * degree / 1000f) * 10 * tier5Counts[1] / max5Tier;
-
-                // ZOMG
-                crippleMoab.GetWeapon(0).projectile.GetBehavior<SlowMaimMoabModel>().zomgMutator.bloonPerHitDamageAddition = 180 + Math.FloorToInt(360f * degree / 1000f) * 10 * tier5Counts[1] / max5Tier;
-
-                // DDT
-                crippleMoab.GetWeapon(0).projectile.GetBehavior<SlowMaimMoabModel>().ddtMutator.bloonPerHitDamageAddition = 180 + Math.FloorToInt(360f * degree / 1000f) * 10 * tier5Counts[1] / max5Tier;
-
-                // BAD
-                crippleMoab.GetWeapon(0).projectile.GetBehavior<SlowMaimMoabModel>().badMutator.bloonPerHitDamageAddition = 480 + Math.FloorToInt(960f * degree / 1000f) * 10 * tier5Counts[1] / max5Tier;
+                crippleMoab.GetWeapon(0).projectile.GetDamageModel().damage = 240 + Math.FloorToInt(960f * degree / 1000f) * 10 * tier5Counts[1] / max5Tier;
                 // End Cripple Moab ---------
 
+
                 // Start Banana Central
-                TowerModel bananaCentral = tower.towerModel.GetWeapon(0).projectile.GetBehavior<CreateTypedTowerModel>().crushingTower;
-                bananaCentral.GetWeapon(0).GetBehavior<EmissionsPerRoundFilterModel>().count = 10 + 10 * degree / 100 * tier5Counts[3] / max5Tier;
+                TowerModel bananaCentral = tower.towerModel.GetWeapon(0).projectile.GetBehavior<CreateTowerModel>().tower;
+                tower.towerModel.GetWeapon(0).rate = 60;
 
                 bananaCentral.GetWeapon(0).projectile.GetBehavior<CashModel>().minimum = 625 + 625 * degree / 100 * tier5Counts[3] / max5Tier;
                 bananaCentral.GetWeapon(0).projectile.GetBehavior<CashModel>().maximum = 625 + 625 * degree / 100 * tier5Counts[3] / max5Tier;
                 // End Banana Central ------------
 
+
                 // Start Dark Champ
-                TowerModel darkChamp = tower.towerModel.GetWeapon(0).projectile.GetBehavior<CreateTypedTowerModel>().coldTower;
+                TowerModel darkChamp = tower.towerModel.GetWeapon(2).projectile.GetBehavior<CreateTowerModel>().tower;
+                tower.towerModel.GetWeapon(2).rate = 60;
+
                 darkChamp.GetAbility(0).cooldown = 15 - 10 * degree / 100 * tier5Counts[2] / max5Tier;
 
                 darkChamp.GetWeapon(0).projectile.GetDamageModel().damage = 4 + 12 * degree / 100 * tier5Counts[2] / max5Tier;
@@ -128,13 +115,16 @@ namespace VillageParagon
                 // End Dark Champ -----------
 
                 // Start Bloon Solver
-                TowerModel bloonSolver = tower.towerModel.GetWeapon(0).projectile.GetBehavior<CreateTypedTowerModel>().boomTower;
+                TowerModel bloonSolver = tower.towerModel.GetWeapon(1).projectile.GetBehavior<CreateTowerModel>().tower;
+                tower.towerModel.GetWeapon(1).rate = 60;
 
-                bloonSolver.GetWeapon(0).projectile.GetBehavior<AddBehaviorToBloonModel>().GetBehavior<DamageOverTimeModel>().damage = 5 + 15 * degree / 100 * tier5Counts[0] / max5Tier;
+                bloonSolver.GetAttackModel(0).weapons[0].projectile.GetBehavior<SlowModifierForTagModel>().slowMultiplier = 4  + 2 * degree / 100 * tier5Counts[3] / max5Tier;
+                bloonSolver.GetAttackModel(0).weapons[0].projectile.GetBehaviors<SlowForBloonModel>()[0].multiplier = 0.2f + 0.4f * degree / 100 * tier5Counts[3] / max5Tier;
+                bloonSolver.GetAttackModel(0).weapons[0].projectile.GetBehaviors<SlowForBloonModel>()[1].multiplier = 0.4f + 0.8f * degree / 100 * tier5Counts[3] / max5Tier;
+                bloonSolver.GetAttackModel(0).weapons[0].projectile.GetBehaviors<SlowModifierForTagModel>()[1].slowMultiplier = 3f + 3f * degree / 100 * tier5Counts[3] / max5Tier;
+
                 bloonSolver.GetWeapon(0).rate = 0.15f - 0.1f * degree / 100 * tier5Counts[0] / max5Tier;
                 // End Bloon Solver -----------
-
-                tower.towerModel.GetWeapon(0).rate = 10 - 5 * degree / 100 * (tier5Counts[0] + tier5Counts[1] + tier5Counts[2] + tier5Counts[3]) / (max5Tier * 4);
 
                 System.Console.WriteLine($"{tier5Counts[0]};{tier5Counts[1]};{tier5Counts[2]};{tier5Counts[3]}");
 
@@ -146,31 +136,34 @@ namespace VillageParagon
                 towerModel.RemoveBehavior<AttackModel>();
 
                 // 400 Engi Sentry Behavior
-                towerModel.AddBehavior(Game.instance.model.GetTower(TowerType.EngineerMonkey, 4, 0, 0).GetAttackModel(0));
+                //towerModel.AddBehavior(Game.instance.model.GetTower(TowerType.EngineerMonkey, 4, 0, 0).GetAttackModel(0));
+                for (int i = 0; i < 4; i++)
+                {
+                    towerModel.AddBehavior(Game.instance.model.GetTower(TowerType.EngineerMonkey, 1, 0, 0).GetAttackModel(0).Duplicate());
+                    towerModel.GetAttackModel(i).weapons[0].Rate = 10f;
+
+                    towerModel.GetAttackModel(i).GetBehavior<RandomPositionModel>().maxDistance = towerModel.range;
+                }
 
                 towerModel.GetBehavior<DisplayModel>().ignoreRotation = true;
                 towerModel.range = 87;
-
-                towerModel.GetAttackModel(0).weapons[0].Rate = 10f;
 
                 // Crushing = Banana Central
                 // Boom = Bloon Solver
                 // Cold = Dark Champion
                 // Energy = Cripple Moab
 
-                towerModel.GetAttackModel(0).GetBehavior<RandomPositionModel>().maxDistance = towerModel.range;
-
                 towerModel.targetTypes = Game.instance.model.GetTower(TowerType.DartMonkey).targetTypes;
                 towerModel.TargetTypes = Game.instance.model.GetTower(TowerType.DartMonkey).TargetTypes;
 
                 // Dummy attack
-                towerModel.AddBehavior(Game.instance.model.GetTower("SniperMonkey").GetAttackModel(0));
-                towerModel.GetAttackModel(1).weapons[0].rate = 999999;
-                towerModel.GetAttackModel(1).GetBehavior<RotateToTargetModel>().rotateTower = false;
-                towerModel.GetAttackModel(1).weapons[0].projectile.display.guidRef = null;
-                towerModel.GetAttackModel(1).weapons[0].RemoveBehavior<EjectEffectModel>();
-                towerModel.GetAttackModel(1).weapons[0].projectile.GetBehavior<DisplayModel>().display.guidRef = null;
-                towerModel.GetAttackModel(1).weapons[0].projectile.GetDamageModel().damage = 0;
+                towerModel.AddBehavior(Game.instance.model.GetTower("SniperMonkey").GetAttackModel(0).Duplicate());
+                towerModel.GetAttackModel(4).weapons[0].rate = 999999;
+                towerModel.GetAttackModel(4).GetBehavior<RotateToTargetModel>().rotateTower = false;
+                towerModel.GetAttackModel(4).weapons[0].projectile.display.guidRef = null;
+                towerModel.GetAttackModel(4).weapons[0].RemoveBehavior<EjectEffectModel>();
+                towerModel.GetAttackModel(4).weapons[0].projectile.GetBehavior<DisplayModel>().display.guidRef = null;
+                towerModel.GetAttackModel(4).weapons[0].projectile.GetDamageModel().damage = 0;
 
                 // Mega discount
                 towerModel.AddBehavior(Game.instance.model.GetTower("MonkeyVillage", 0, 0, 2).GetBehavior<DiscountZoneModel>());
