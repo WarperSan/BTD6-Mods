@@ -8,7 +8,7 @@ namespace VillageParagon
 {
     public static class ModHelperData
     {
-        public const string Version = "1.0.0";
+        public const string Version = "1.1.0";
         public const string Name = "Village Paragon";
         public const string Description =
             "Adds a Paragon to the Monkey Village";
