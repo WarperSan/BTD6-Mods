@@ -5,7 +5,6 @@ Here is the new Village paragon.
 - Description: "Throws specialized Bots on the field. Tier 5s sacrifices enchance the paragon's tower of the same type but will consume everything that isn't a village. Also gives mega buffs."
 - Cost: 650k
 - Range: 87
-- Sentry placement rate = 10 - 5 * degree / 100 * (How many T5s sacrificed (capped at 5 for each type)) / 20
 
 
 ### How does it work ?
