@@ -35,9 +35,14 @@ namespace SolverSentry
                 towerModel.portrait = Game.instance.model.GetTowerFromId("TechBot").portrait;
                 towerModel.dontDisplayUpgrades = true;
 
-                towerModel.AddBehavior(Game.instance.model.GetTower("GlueGunner", 5, 2, 0).GetAttackModel(0));
+                towerModel.AddBehavior(Game.instance.model.GetTower("GlueGunner", 0, 2, 5).GetAttackModel(0));
 
-                towerModel.GetWeapon(0).projectile.GetBehavior<AddBehaviorToBloonModel>().GetBehavior<DamageOverTimeModel>().damage = 5;
+
+                towerModel.GetAttackModel(0).weapons[0].projectile.GetBehavior<SlowModifierForTagModel>().slowMultiplier = 4;
+                towerModel.GetAttackModel(0).weapons[0].projectile.GetBehaviors<SlowForBloonModel>()[0].multiplier = 0.2f;
+                towerModel.GetAttackModel(0).weapons[0].projectile.GetBehaviors<SlowForBloonModel>()[1].multiplier = 0.4f;
+                towerModel.GetAttackModel(0).weapons[0].projectile.GetBehaviors<SlowModifierForTagModel>()[1].slowMultiplier = 3f;
+
                 towerModel.GetWeapon(0).rate = 0.15f;
 
                 towerModel.range = Game.instance.model.GetTower("GlueGunner", 5, 2, 0).range;
@@ -46,7 +51,7 @@ namespace SolverSentry
                 CreditPopsToParentTowerModel creditParent = new CreditPopsToParentTowerModel("CreditPopsToParentTowerModel_");
                 towerModel.AddBehavior(creditParent);
 
-                TowerExpireModel towerExpire = new TowerExpireModel("TowerExpireModel_", 25f, 0, false, false);
+                TowerExpireModel towerExpire = new TowerExpireModel("TowerExpireModel_", 60f, 0, false, false);
 
                 if (!VillageParagon.VillageParagon.addSentriesInShop)
                     towerModel.AddBehavior(towerExpire);
@@ -59,8 +64,8 @@ namespace SolverSentry
                 towerModel.TargetTypes = Game.instance.model.GetTower(TowerType.DartMonkey).TargetTypes;
                 towerModel.towerSelectionMenuThemeId = "Default";
 
-                GetTowerModel<VillageParagon.VillageParagon.MonkeyVillageParagon>().GetWeapon(0).projectile.GetBehavior<CreateTypedTowerModel>().boomTower = towerModel;
-                GetTowerModel<VillageParagon.VillageParagon.MonkeyVillageParagon>().GetWeapon(0).projectile.GetBehavior<CreateTypedTowerModel>().boomDisplay = towerModel.display;
+                GetTowerModel<VillageParagon.VillageParagon.MonkeyVillageParagon>().GetWeapon(1).projectile.GetBehavior<CreateTowerModel>().tower = towerModel;
+                GetTowerModel<VillageParagon.VillageParagon.MonkeyVillageParagon>().GetWeapon(1).projectile.display = towerModel.display;
             }
         }
 

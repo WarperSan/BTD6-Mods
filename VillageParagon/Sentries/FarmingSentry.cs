@@ -45,8 +45,7 @@ namespace FarmingSentry
                 towerModel.GetBehavior<DisplayModel>().ignoreRotation = true;
                 towerModel.AddBehavior(Game.instance.model.GetTower(TowerType.BananaFarm, 5, 2, 0).GetAttackModel(0));
 
-                towerModel.GetWeapon(0).GetBehavior<EmissionsPerRoundFilterModel>().count = 10;
-                towerModel.GetWeapon(0).GetBehavior<WeaponRateMinModel>().min = 0;
+                towerModel.GetWeapon(0).RemoveBehavior<EmissionsPerRoundFilterModel>();
 
                 towerModel.GetWeapon(0).projectile.GetBehavior<CashModel>().minimum = 625;
                 towerModel.GetWeapon(0).projectile.GetBehavior<CashModel>().maximum = 625;
@@ -58,7 +57,7 @@ namespace FarmingSentry
                 CreditPopsToParentTowerModel creditParent = new CreditPopsToParentTowerModel("CreditPopsToParentTowerModel_");
                 towerModel.AddBehavior(creditParent);
 
-                TowerExpireModel towerExpire = new TowerExpireModel("TowerExpireModel_", 25f, 0, false, false);
+                TowerExpireModel towerExpire = new TowerExpireModel("TowerExpireModel_", 5f, 0, false, false);
 
                 if (!VillageParagon.VillageParagon.addSentriesInShop)
                     towerModel.AddBehavior(towerExpire);
@@ -67,8 +66,8 @@ namespace FarmingSentry
 
                 towerModel.ApplyDisplay<FarmSentryDisplay>();
 
-                GetTowerModel<VillageParagon.VillageParagon.MonkeyVillageParagon>().GetWeapon(0).projectile.GetBehavior<CreateTypedTowerModel>().crushingTower = towerModel;
-                GetTowerModel<VillageParagon.VillageParagon.MonkeyVillageParagon>().GetWeapon(0).projectile.GetBehavior<CreateTypedTowerModel>().crushingDisplay = towerModel.display;
+                GetTowerModel<VillageParagon.VillageParagon.MonkeyVillageParagon>().GetWeapon(0).projectile.GetBehavior<CreateTowerModel>().tower = towerModel;
+                GetTowerModel<VillageParagon.VillageParagon.MonkeyVillageParagon>().GetWeapon(0).projectile.display = towerModel.display;
             }
         }
 

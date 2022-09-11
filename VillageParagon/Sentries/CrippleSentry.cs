@@ -47,36 +47,13 @@ namespace CrippleSentry
                 towerModel.isGlobalRange = true;
 
                 towerModel.GetWeapon(0).rate = 0.15f;
-                towerModel.GetWeapon(0).projectile.GetDamageModel().damage = 240;
-
-                // Modifiers
-                // Ceramics
-                towerModel.GetWeapon(0).projectile.GetBehavior<DamageModifierForTagModel>().damageMultiplier = 1.5f;
-                towerModel.GetWeapon(0).projectile.GetBehavior<DamageModifierForTagModel>().damageAddative = 45;
-
-                // Moab
-                towerModel.GetWeapon(0).projectile.GetBehavior<SlowMaimMoabModel>().moabMutator.bloonPerHitDamageAddition = 60;
-                towerModel.GetWeapon(0).projectile.GetBehavior<SlowMaimMoabModel>().moabMutator.multiplier = 1;
-
-                // BFB
-                towerModel.GetWeapon(0).projectile.GetBehavior<SlowMaimMoabModel>().bfbMutator.bloonPerHitDamageAddition = 120;
-                towerModel.GetWeapon(0).projectile.GetBehavior<SlowMaimMoabModel>().bfbMutator.multiplier = 1;
-
-                // ZOMG
-                towerModel.GetWeapon(0).projectile.GetBehavior<SlowMaimMoabModel>().zomgMutator.bloonPerHitDamageAddition = 180;
-                towerModel.GetWeapon(0).projectile.GetBehavior<SlowMaimMoabModel>().zomgMutator.multiplier = 1;
-
-                // DDT
-                towerModel.GetWeapon(0).projectile.GetBehavior<SlowMaimMoabModel>().ddtMutator.bloonPerHitDamageAddition = 180;
-                towerModel.GetWeapon(0).projectile.GetBehavior<SlowMaimMoabModel>().ddtMutator.multiplier = 1;
-
-                // BAD
-                towerModel.GetWeapon(0).projectile.GetBehavior<SlowMaimMoabModel>().badMutator.bloonPerHitDamageAddition = 480;
+                towerModel.GetWeapon(0).projectile.GetDamageModel().damage = 480;
+                towerModel.GetWeapon(0).projectile.RemoveBehavior<SlowMaimMoabModel>();
 
                 CreditPopsToParentTowerModel creditParent = new CreditPopsToParentTowerModel("CreditPopsToParentTowerModel_");
                 towerModel.AddBehavior(creditParent);
 
-                TowerExpireModel towerExpire = new TowerExpireModel("TowerExpireModel_", 25f, 0, false, false);
+                TowerExpireModel towerExpire = new TowerExpireModel("TowerExpireModel_", 120f, 0, false, false);
 
                 if (!VillageParagon.VillageParagon.addSentriesInShop)
                     towerModel.AddBehavior(towerExpire);
@@ -89,8 +66,8 @@ namespace CrippleSentry
                 towerModel.TargetTypes = Game.instance.model.GetTower(TowerType.DartMonkey).TargetTypes;
                 towerModel.towerSelectionMenuThemeId = "Default";
 
-                GetTowerModel<VillageParagon.VillageParagon.MonkeyVillageParagon>().GetWeapon(0).projectile.GetBehavior<CreateTypedTowerModel>().energyTower = towerModel;
-                GetTowerModel<VillageParagon.VillageParagon.MonkeyVillageParagon>().GetWeapon(0).projectile.GetBehavior<CreateTypedTowerModel>().energyDisplay = towerModel.display;
+                GetTowerModel<VillageParagon.VillageParagon.MonkeyVillageParagon>().GetWeapon(3).projectile.GetBehavior<CreateTowerModel>().tower = towerModel;
+                GetTowerModel<VillageParagon.VillageParagon.MonkeyVillageParagon>().GetWeapon(3).projectile.display = towerModel.display;
             }
         }
 

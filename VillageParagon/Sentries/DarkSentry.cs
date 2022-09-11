@@ -55,7 +55,7 @@ namespace DarkSentry
                 CreditPopsToParentTowerModel creditParent = new CreditPopsToParentTowerModel("CreditPopsToParentTowerModel_");
                 towerModel.AddBehavior(creditParent);
 
-                TowerExpireModel towerExpire = new TowerExpireModel("TowerExpireModel_", 25f, 0, false, false);
+                TowerExpireModel towerExpire = new TowerExpireModel("TowerExpireModel_", 60f, 0, false, false);
 
                 if (!VillageParagon.VillageParagon.addSentriesInShop)
                     towerModel.AddBehavior(towerExpire);
@@ -68,8 +68,8 @@ namespace DarkSentry
                 towerModel.TargetTypes = Game.instance.model.GetTower(TowerType.DartMonkey).TargetTypes;
                 towerModel.towerSelectionMenuThemeId = "Default";
 
-                GetTowerModel<VillageParagon.VillageParagon.MonkeyVillageParagon>().GetWeapon(0).projectile.GetBehavior<CreateTypedTowerModel>().coldTower = towerModel;
-                GetTowerModel<VillageParagon.VillageParagon.MonkeyVillageParagon>().GetWeapon(0).projectile.GetBehavior<CreateTypedTowerModel>().coldDisplay = towerModel.display;
+                GetTowerModel<VillageParagon.VillageParagon.MonkeyVillageParagon>().GetWeapon(2).projectile.GetBehavior<CreateTowerModel>().tower = towerModel;
+                GetTowerModel<VillageParagon.VillageParagon.MonkeyVillageParagon>().GetWeapon(2).projectile.display = towerModel.display;
             }
         }
 
