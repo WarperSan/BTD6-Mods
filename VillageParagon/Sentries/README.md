@@ -15,24 +15,33 @@ Description:
 ```
 Spawn a money geyser for 5 seconds. 
 The sentry is spawned every 60 seconds.
+
 Value of the crates = 625 + 625 * degree / 100 * tier5Counts[3] / 5
 ```
 
 # Big Boi Sentry ![Big Boi Sentry Picture](big_boi_sentry.PNG)
-- Rate = 0.15f - degree / 1000f
-- Damage = 240 + Math.FloorToInt(480f * degree / 1000f) * 10 * tier5Counts[1] / 5
-- Ceramics damage addative = 45 + Math.FloorToInt(90f * degree / 1000f) * 10 * tier5Counts[1] / 5
-- Moab damage addition = 60 + Math.FloorToInt(120f * degree / 1000f) * 10 * tier5Counts[1] / 5
-- BFB damage addition = 120 + Math.FloorToInt(240f * degree / 1000f) * 10 * tier5Counts[1] / 5
-- ZOMG & DDT damage addition = 180 + Math.FloorToInt(360f * degree / 1000f) * 10 * tier5Counts[1] / 5
-- BAD damage addition = 480 + Math.FloorToInt(960f * degree / 1000f) * 10 * tier5Counts[1] / 5
-- Replaced the Energy sentry
+```
+Deals huge single target damage for 120 seconds.
+The sentry is spawned every 30 seconds.
+
+Rate = 0.15f - degree / 1000f
+Damage = 240 + Math.FloorToInt(480f * degree / 1000f) * 10 * tier5Counts[1] / 5
+Ceramics damage addative = 45 + Math.FloorToInt(90f * degree / 1000f) * 10 * tier5Counts[1] / 5
+Moab damage addition = 60 + Math.FloorToInt(120f * degree / 1000f) * 10 * tier5Counts[1] / 5
+BFB damage addition = 120 + Math.FloorToInt(240f * degree / 1000f) * 10 * tier5Counts[1] / 5
+ZOMG & DDT damage addition = 180 + Math.FloorToInt(360f * degree / 1000f) * 10 * tier5Counts[1] / 5
+BAD damage addition = 480 + Math.FloorToInt(960f * degree / 1000f) * 10 * tier5Counts[1] / 5
+```
 
 # Group Sentry ![Group Picture](group_sentry.PNG)
-- Ability cooldown = 15 - 10 * degree / 100 * tier5Counts[2] / 5
-- Damage = 4 + 12 * degree / 100 * tier5Counts[2] / 5
-- Pierce = 18 + 54 * degree / 100 * tier5Counts[2] / 5
-- Replaced the Cold sentry
+```
+Deals huge multi target damage for 60 seconds.
+The sentry is spawned every 60 seconds.
+
+Ability cooldown = 15 - 10 * degree / 100 * tier5Counts[2] / 5
+Damage = 4 + 12 * degree / 100 * tier5Counts[2] / 5
+Pierce = 18 + 54 * degree / 100 * tier5Counts[2] / 5
+```
 
 # Solver Sentry ![Solver Picture](solver_sentry.PNG)
 - Damage = 5 + 15 * degree / 100 * tier5Counts[0] / 5
