@@ -11,9 +11,12 @@ Like vanilla Paragons, the Village paragon increases in power the higher its deg
 So tier5Counts[x] is equal to the number of sacrificed towers of the associated type (x = 3 for the Farming Sentry).
 
 # Farming Sentry ![Farming Sentry Picture](farming_sentry.png)
-- How much crates it can generate **at max**: 10 + 10 * degree / 100 * tier5Counts[3] / 5
-- Value of each crates: 625 + 625 * degree / 100 * tier5Counts[3] / 5
-- Replaced the Crushing sentry
+Description: 
+```
+Spawn a money geyser for 5 seconds. 
+The sentry is spawned every 60 seconds.
+Value of the crates = 625 + 625 * degree / 100 * tier5Counts[3] / 5
+```
 
 # Big Boi Sentry ![Big Boi Sentry Picture](big_boi_sentry.PNG)
 - Rate = 0.15f - degree / 1000f
