@@ -10,6 +10,5 @@ namespace VillageParagon
 {
     public class Main : BloonsTD6Mod
     {
-        public override string GithubReleaseURL => "https://api.github.com/WarperSan/BTD6-Mods/releases/tag/SubParagon";
     }
 }
