@@ -10,5 +10,7 @@ namespace VillageParagon
 {
     public class Main : BloonsTD6Mod
     {
+        public override string MelonInfoCsURL => "https://raw.githubusercontent.com/WarperSan/BTD6-Mods/main/VillageParagon/ModHelperData.cs";
+        public override string LatestURL => "https://github.com/WarperSan/BTD6-Mods/blob/main/VillageParagon/VillageParagon.dll?raw=true";
     }
 }
