@@ -16,8 +16,5 @@ namespace VillageParagon
         public const string RepoOwner = "WarperSan";
         public const string RepoName = "BTD6-Mods";
         public const string Icon = "VillageParagon-Icon.png";
-
-        public const string SubPath = "VillageParagon";
-        public const string DllName = "VillageParagon.dll";
     }
 }
