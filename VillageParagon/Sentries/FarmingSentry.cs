@@ -43,7 +43,7 @@ namespace FarmingSentry
                 towerModel.dontDisplayUpgrades = true;
 
                 towerModel.GetBehavior<DisplayModel>().ignoreRotation = true;
-                towerModel.AddBehavior(Game.instance.model.GetTower(TowerType.BananaFarm, 5, 2, 0).GetAttackModel(0));
+                towerModel.AddBehavior(Game.instance.model.GetTower(TowerType.BananaFarm, 5, 2, 0).GetAttackModel(0).Duplicate());
 
                 towerModel.GetWeapon(0).RemoveBehavior<EmissionsPerRoundFilterModel>();
 
