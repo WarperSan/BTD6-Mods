@@ -6,82 +6,88 @@ Name of the Paragon : USS Seawolf-575
 
 In game description: "After YEARS of making, I finally succeeded to create the perfect radioactive destroyer. It can destroy anything! Even... Oh no... I forgot about DDTs... - Dr. Monkey"
 
-Details about the Paragon:
+Stats for nerds (__let x be the Paragon Degree__):
 ```
-Range: 90
-Cost: 450,000
+range(_): 90 units
+cost(_): $450,000
 ```
 
 Base Darts Projectile (005 Sub's Darts):
 ```
-All degrees
-Damage = degree / 10 + 16
-Rate = -0.00003 * (degree - 1) + 0.03
+1..49:
+    speed(_) = 300
+    damage(x) = ⌊x / 10⌋ + 16
+   speed(x) = -0.00003(x - 1) + 0.03
 
-From degree 1 to 49
-Speed = 300
-
-From degree 50
-Speed = 6.5f * degree;
+50..100:
+    speed(x) = 6.5x
+    damage(x) = x / 10 + 16
+   speed(x) = -0.00003(x - 1) + 0.03
 ```
 
 Fraction Projectile (005 Sub's Darts' Projectile)
 ```
-All degrees
-Speed = 900
+1..24:
+     speed(_) = 900
+    damage(_) = 8
+     count(_) = 7
 
-From degree 1 to 24
-Count = 7
-Damage = 8
+25..74:
+     speed(_) = 900
+    damage(x) = x / 8 + 8
+     count(_) = 9
 
-Upon degree 25
-Damage = degree / 8 + 8
-
-From degree 25 to 74
-Count = 9
-
-Upon degree 75
-Count = 13
+75..100:
+     speed(_) = 900
+    damage(x) = x / 8 + 8
+     count(_) = 13
 ```
 
-Big Missile
+Big Missile (missing areas)
 ```
-From degree 1 to 74
-Rate = 5 / 7 * degree + 10;
+1..49:
+    damage(_) = 20,000
+     speed(x) = (5/7)x + 10
+     count(_) = ???
 
-From degree 1 to 49
-Damage = 20000
+50..74:
+    damage(_) = ???
+     speed(_) = ???
+     count(_) = ???
 
-From degree 75 to 99
-Rate = 60
+75..99:
+    damage(_) = ???
+     speed(_) = 60
+     count(_) = ???
 
-From degree 100
-Rate = 20
+100:
+    damage(_) = ???
+     speed(_) = 20
+     count(_) = ???
 ```
 
 Normal Missile
 ```
-All degrees
-Damage = 2000 * (degree / 10 + 1)
-Note that (degree / 10 + 1) can only be an integer
-Rate = 0.5
+1..100:
+    damage(x) = 2000(⌊x / 10⌋ + 1)
+     speed(_) = 0.5
 ```
 
 Radioactive Zone
 ```
-All degrees
-Damage = 500
+1..49:
+      damage(_) = 500
+    interval(_) = 0.1
+    lifespan(_) = 20
 
-From degree 1 to 49
-Interval = 0.1
-Lifespan = 20
-
-Upon degree 50
-Interval = 0.05
-Lifespan = 0.4 * degree + 20
+50..100:
+      damage(_) = 500
+    interval(_) = 0.05
+    lifespan(x) = 0.4x + 20
 ```
 
 Pre Emptive Strike
 ```
-Damage = 1500
+1..100:
+    damage(_) = 1500
 ```
